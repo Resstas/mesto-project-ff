@@ -12,12 +12,12 @@ const popupNewCard = document.querySelector('.popup_type_new-card');
 const profileTitle = content.querySelector('.profile__title')
 const profileJob =  content.querySelector('.profile__description')
 const formProfile = popupProfile.querySelector('.popup__form');
-
 const nameInput = formProfile.querySelector('.popup__input_type_name');
 const jobInput = formProfile.querySelector('.popup__input_type_description');
 const formAddCard = popupNewCard.querySelector('.popup__form');
 const cardNameInput = popupNewCard.querySelector('.popup__input_type_card-name');
 const cardUrlInput = popupNewCard.querySelector('.popup__input_type_url');
+const popupImgContainer = document.querySelector('.popup_type_image');
 
 initialCards.forEach(function (item) {
   const name = item.name;
@@ -28,7 +28,6 @@ initialCards.forEach(function (item) {
 });
 
 function clickImg(evt){
-  const popupImgContainer = document.querySelector('.popup_type_image');
   const popupImg = popupImgContainer.querySelector('.popup__image'); 
   const popupImgName = popupImgContainer.querySelector('.popup__caption');
   openModal(popupImgContainer);
@@ -37,33 +36,20 @@ function clickImg(evt){
   popupImgName.textContent = evt.target.alt;
 };
 
-//открытие модального окна
-
-
 popupProfileBtn.addEventListener('click', function(){
   openModal(popupProfile);
-  textValue();
+  addTextValue();
 });
 
 popupAddBtn.addEventListener('click', function(){ 
   openModal(popupNewCard);
 });
 
-
-
-
-//закрытие модального окна
-
 popupAll.forEach((popup) => {
   popup.classList.add('popup_is-animated');
   const closeBtn = popup.querySelector('.popup__close')
   closeBtn.addEventListener('click', function(){
     closeModal(popup)
-  })
-  document.addEventListener('keydown', function(evt){
-    if (evt.key === 'Escape') {
-      closeModal(popup)
-    } 
   })
   const popupContent = popup.querySelector('.popup__content')
   popupContent.addEventListener('click', function(evt){
@@ -73,29 +59,31 @@ popupAll.forEach((popup) => {
   popup.addEventListener('click', function(){
     closeModal(popup)
   })
+
+  function closeByEsc(evt) {
+    if (evt.key === 'Escape') {
+      closeModal(popup)
+      document.removeEventListener('keydown', closeByEsc)
+    }
+  }
+  document.addEventListener('keydown', closeByEsc)
   
 })
 
 
-
-
-
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-function handleFormSubmit(evt) {
+function handleFormSubmitProfile(evt) {
     evt.preventDefault();                                          
     profileTitle.textContent = nameInput.value
     profileJob.textContent = jobInput.value
     closeModal(popupProfile);
 }
 
-function textValue() {
+function addTextValue() {
   nameInput.value = profileTitle.textContent
   jobInput.value = profileJob.textContent
 }
 
-formProfile.addEventListener('submit', handleFormSubmit);
+formProfile.addEventListener('submit', handleFormSubmitProfile);
 
 formAddCard.addEventListener('submit', function(evt){
   evt.preventDefault();

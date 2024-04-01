@@ -44,8 +44,8 @@ export function createCard(name,link,alt, deleteCard, likeCard, clickImg) {
 
 
 export function deleteCard(evt) {
-  const deleteBtn = evt.target.closest('.card');
-  deleteBtn.remove();
+  const card = evt.target.closest('.card');
+  card.remove();
 };
 
 export function likeCard(evt) {
