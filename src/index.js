@@ -1,6 +1,7 @@
 import './pages/index.css';
-import {initialCards,createCard,deleteCard,likeCard } from './scripts/cards.js';
-import { openModal, closeModal } from './scripts/modal.js';
+import { initialCards } from './scripts/сardS.js';
+import {createCard,deleteCard,likeCard } from './scripts/card.js';
+import { openModal, closeModal, closeByEsc } from './scripts/modal.js';
 
 const content = document.querySelector('.content');
 const cardPlaces = content.querySelector('.places__list');
@@ -18,6 +19,8 @@ const formAddCard = popupNewCard.querySelector('.popup__form');
 const cardNameInput = popupNewCard.querySelector('.popup__input_type_card-name');
 const cardUrlInput = popupNewCard.querySelector('.popup__input_type_url');
 const popupImgContainer = document.querySelector('.popup_type_image');
+const popupImg = popupImgContainer.querySelector('.popup__image'); 
+const popupImgName = popupImgContainer.querySelector('.popup__caption');
 
 initialCards.forEach(function (item) {
   const name = item.name;
@@ -28,8 +31,6 @@ initialCards.forEach(function (item) {
 });
 
 function clickImg(evt){
-  const popupImg = popupImgContainer.querySelector('.popup__image'); 
-  const popupImgName = popupImgContainer.querySelector('.popup__caption');
   openModal(popupImgContainer);
   popupImg.src = evt.target.src;
   popupImg.alt = evt.target.alt;
@@ -59,15 +60,6 @@ popupAll.forEach((popup) => {
   popup.addEventListener('click', function(){
     closeModal(popup)
   })
-
-  function closeByEsc(evt) {
-    if (evt.key === 'Escape') {
-      closeModal(popup)
-      document.removeEventListener('keydown', closeByEsc)
-    }
-  }
-  document.addEventListener('keydown', closeByEsc)
-  
 })
 
 
