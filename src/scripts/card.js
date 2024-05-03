@@ -1,5 +1,6 @@
 import { deleteCardApi, putLike, deleteLike } from "./api.js";
-export function createCard(name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard,likeCard, clickImg) {
+
+export function createCard({name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard,likeCard, clickImg}) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -9,6 +10,8 @@ export function createCard(name, link, alt, likeCounter, idCardOwner, idOwner, i
   cardElement.querySelector('.card__like-number').textContent = likeCounter;
 
   const deleteIcon = cardElement.querySelector('.card__delete-button');
+   console.log(idCardOwner, idOwner);
+
   if (idCardOwner != idOwner) {
     deleteIcon.remove();
   } else {

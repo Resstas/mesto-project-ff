@@ -93,7 +93,7 @@ formAddCard.addEventListener('submit', function(evt){
     link: link
   })
   likeCounter = 0;
-  const cardElement = createCard(name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard, likeCard, clickImg);
+  const cardElement = createCard({name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard, likeCard, clickImg});
   cardPlaces.prepend(cardElement);
   formAddCard.reset();
   closeModal(popupNewCard);
@@ -108,9 +108,8 @@ formAddCard.addEventListener('submit', function(evt){
 
 enableValidation(SELECTORS);
 
-let idCardOwner;
-let idCard;
-let likeCounter;
+
+
 const idOwner = "f81b012ec4774307e0139d4f";
 getInitialCards()
   .then((res) => {
@@ -120,10 +119,10 @@ getInitialCards()
       const link = item.link;
       const alt = item.name;
 
-      idCardOwner = item.owner._id;
-      idCard = item._id
-      likeCounter = item.likes.length;
-      const cardElement = createCard(name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard, likeCard, clickImg);
+      const idCardOwner = item.owner._id;
+      const idCard = item._id;
+      const likeCounter = item.likes.length;
+      const cardElement = createCard({name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard, likeCard, clickImg});
       cardPlaces.append(cardElement);
     });
   })
