@@ -1,8 +1,17 @@
 import './pages/index.css';
-import { initialCards } from './scripts/сardS.js';
-import {createCard,deleteCard,likeCard } from './scripts/card.js';
-import { openModal, closeModal, closeByEsc } from './scripts/modal.js';
+import {createCard, deleteCard ,likeCard } from './scripts/card.js';
+import { openModal, closeModal } from './scripts/modal.js';
+import { enableValidation, clearValidation  } from './scripts/validation.js';
+import { getInitialCards, getInitialUser, pathProfile, postCard, deleteCardApi, putLike, deleteLike } from './scripts/api.js';
 
+const SELECTORS = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 const content = document.querySelector('.content');
 const cardPlaces = content.querySelector('.places__list');
 const popupAll = document.querySelectorAll('.popup');
@@ -10,8 +19,9 @@ const popupAddBtn = content.querySelector('.profile__add-button');
 const popupProfileBtn =  document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_type_edit');
 const popupNewCard = document.querySelector('.popup_type_new-card');
-const profileTitle = content.querySelector('.profile__title')
-const profileJob =  content.querySelector('.profile__description')
+const profileTitle = content.querySelector('.profile__title');
+const profileJob =  content.querySelector('.profile__description');
+const profileImg = content.querySelector('.profile__image');
 const formProfile = popupProfile.querySelector('.popup__form');
 const nameInput = formProfile.querySelector('.popup__input_type_name');
 const jobInput = formProfile.querySelector('.popup__input_type_description');
@@ -22,14 +32,6 @@ const popupImgContainer = document.querySelector('.popup_type_image');
 const popupImg = popupImgContainer.querySelector('.popup__image'); 
 const popupImgName = popupImgContainer.querySelector('.popup__caption');
 
-initialCards.forEach(function (item) {
-  const name = item.name;
-  const link = item.link;
-  const alt = item.name;
-  const cardElement = createCard(name,link, alt,deleteCard,likeCard, clickImg);
-  cardPlaces.append(cardElement);
-});
-
 function clickImg(evt){
   openModal(popupImgContainer);
   popupImg.src = evt.target.src;
@@ -39,11 +41,13 @@ function clickImg(evt){
 
 popupProfileBtn.addEventListener('click', function(){
   openModal(popupProfile);
+  clearValidation(popupProfile, SELECTORS); 
   addTextValue();
 });
 
 popupAddBtn.addEventListener('click', function(){ 
   openModal(popupNewCard);
+  clearValidation(popupNewCard, SELECTORS);
 });
 
 popupAll.forEach((popup) => {
@@ -68,6 +72,7 @@ function handleFormSubmitProfile(evt) {
     profileTitle.textContent = nameInput.value
     profileJob.textContent = jobInput.value
     closeModal(popupProfile);
+    pathProfile();
 }
 
 function addTextValue() {
@@ -83,13 +88,62 @@ formAddCard.addEventListener('submit', function(evt){
   const name = cardNameInput.value;
   const link = cardUrlInput.value;
   const alt = cardNameInput.value;
-
-  const cardElement = createCard(name, link, alt, deleteCard,likeCard,clickImg);
+  postCard({
+    name: name,
+    link: link
+  })
+  likeCounter = 0;
+  const cardElement = createCard(name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard, likeCard, clickImg);
   cardPlaces.prepend(cardElement);
   formAddCard.reset();
   closeModal(popupNewCard);
+  
 });
 
+
+//Валидация фррмы
+
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
+
+enableValidation(SELECTORS);
+
+let idCardOwner;
+let idCard;
+let likeCounter;
+const idOwner = "f81b012ec4774307e0139d4f";
+getInitialCards()
+  .then((res) => {
+    res.forEach(function (item) {
+      console.log(item)
+      const name = item.name;
+      const link = item.link;
+      const alt = item.name;
+
+      idCardOwner = item.owner._id;
+      idCard = item._id
+      likeCounter = item.likes.length;
+      const cardElement = createCard(name, link, alt, likeCounter, idCardOwner, idOwner, idCard, deleteCard, likeCard, clickImg);
+      cardPlaces.append(cardElement);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+getInitialUser()
+  .then((res) => {
+    console.log(res)
+    const name = res.name;
+    const about = res.about;
+    const avatar = res.avatar;
+    profileTitle.textContent = name;
+    profileJob.textContent = about;
+    profileImg.style.backgroundImage = avatar;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 
 
