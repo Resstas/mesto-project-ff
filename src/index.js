@@ -107,6 +107,9 @@ function handleFormSubmitProfile(evt) {
       name: nameInput.value,
       about: jobInput.value
     })
+      .catch((err) => {
+        console.log(err)
+      })
       .finally(() => {
         renderLoading(false, textLoadingBtnProfile, textBtnProfile);
       });
@@ -133,6 +136,9 @@ formAddCard.addEventListener('submit', async function(evt){
     name: name,
     link: link
   })
+    .catch((err) => {
+      console.log(err)
+    })
     .finally(() => {
       renderLoading(false, textLoadingBtnNewCard, textBtnNewCard);
     });
@@ -157,6 +163,9 @@ function handleFormSubmitProfileAvatar(evt) {
   patchAvatar({
     avatar: avatarUrl
   })
+    .catch((err) => {
+      console.log(err)
+    })
     .finally(() => {
       renderLoading(false, textLoadingBtnProfileAvatar, textBtnProfileAvatar);
     });
@@ -176,7 +185,7 @@ function renderLoading(isLoading, textLoadingBtn, textBtn) {
   }
 }
 
-enableValidation(SELECTORS);
+
 
 
 
@@ -195,7 +204,7 @@ getInitialCards()
     console.log(err);
   });
 
-
+enableValidation(SELECTORS);
 
 
 
