@@ -1,9 +1,15 @@
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/wff-cohort-12',
+  headers: {
+    authorization: '784587d3-8b32-49e1-953b-1e820da5493a',
+    'Content-Type': 'application/json'
+  }
+}
+
 export function getInitialUser() {
-  return fetch('https://nomoreparties.co/v1/wff-cohort-12/users/me', {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'GET',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a'
-    }
+    headers: config.headers
   })
     .then(res => {
       if (res.ok) {
@@ -14,12 +20,9 @@ export function getInitialUser() {
 }
 
 export function pathProfile(newPatch) {
-  return fetch('https://nomoreparties.co/v1/wff-cohort-12/users/me', {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: newPatch.name,
       about: newPatch.about
@@ -34,11 +37,9 @@ export function pathProfile(newPatch) {
 }
 
 export function getInitialCards() {
-  return fetch('https://nomoreparties.co/v1/wff-cohort-12/cards', {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'GET',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a'
-    }
+    headers: config.headers
   })
     .then(res => {
       if (res.ok) {
@@ -50,12 +51,9 @@ export function getInitialCards() {
 }
 
 export function postCard(newPost) {
-  return fetch('https://nomoreparties.co/v1/wff-cohort-12/cards', {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: newPost.name,
       link: newPost.link
@@ -70,12 +68,9 @@ export function postCard(newPost) {
 }
 
 export function deleteCardApi(cardId) {
-  return fetch(`https://nomoreparties.co/v1/wff-cohort-12/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a',
-      'Content-Type': 'application/json'
-    }
+    headers: config.headers
   })
     .then(res => {
       if (res.ok) {
@@ -86,11 +81,9 @@ export function deleteCardApi(cardId) {
 }
 
 export function putLike(cardId) {
-  return fetch(`https://nomoreparties.co/v1/wff-cohort-12/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a'
-    }
+    headers: config.headers
   })
     .then(res => {
       if (res.ok) {
@@ -102,11 +95,9 @@ export function putLike(cardId) {
 };
 
 export function deleteLike(cardId) {
-  return fetch(`https://nomoreparties.co/v1/wff-cohort-12/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a'
-    }
+    headers: config.headers
   })
     .then(res => {
       if (res.ok) {
@@ -118,12 +109,9 @@ export function deleteLike(cardId) {
 };
 
 export function patchAvatar(newPatch) {
-  return fetch('https://nomoreparties.co/v1/wff-cohort-12/users/me/avatar', {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
-    headers: {
-      authorization: '784587d3-8b32-49e1-953b-1e820da5493a',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       avatar: newPatch.avatar
     })
