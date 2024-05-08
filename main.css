@@ -633,6 +633,23 @@ template {
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  pointer-events: none;
+}
+
+.profile__image-button {
+  border: 0;
+  padding: 0;
+  pointer-events: auto;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.profile__image-button:hover {
+  background-image: url(a086f758840ae814ecde.svg);
+  background-color: rgba(0, 0, 0, 0.8);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @media screen and (max-width: 740px) {
@@ -648,7 +665,7 @@ template {
 }
 
 .profile {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   color: #fff;
   display: flex;
   align-items: center;
@@ -693,10 +710,11 @@ template {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  padding: 25px 20px;
+  padding: 21px 20px;
 }
 
 .card__image {
+  display: block;
   height: 282px;
   object-fit: cover;
   width: 100%;
@@ -707,11 +725,11 @@ template {
 }
 
 .card__like-button {
-  width: 21px;
-  height: 18px;
+  width: 22px;
+  height: 19px;
   background: transparent url(49570bcb1d637fdb38e5.svg) no-repeat;
-  
-  background-size: 21px 18px;
+
+  background-size: 22px 19px;
   border: none;
   cursor: pointer;
   padding: 0;
@@ -725,6 +743,21 @@ template {
 
 .card__like-button:hover {
   opacity: 0.6;
+}
+
+.card__like-conteiner {
+  display: flex;
+  flex-direction: column;
+}
+
+.card__like-number {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #000;
+  margin-top: 2px;
 }
 
 .card__like-button_is-active {
@@ -784,6 +817,14 @@ template {
   position: relative;
   box-sizing: border-box;
   padding: 34px 36px;
+}
+
+.popup__new-avatar {
+  min-height: 272px;
+}
+
+.popup__delete-card {
+  min-height: 181px;
 }
 
 @media screen and (max-width: 568px) {
@@ -855,7 +896,7 @@ template {
   width: 100%;
   height: 47px;
   border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 14px;
   line-height: 18px;
   box-sizing: border-box;
@@ -865,6 +906,30 @@ template {
 
 .popup__input:last-of-type {
   margin-bottom: 0;
+}
+
+.popup__input-error {
+  color: #f00;
+  font-size: 12px;
+  position: absolute;
+}
+
+.popup__input-error:nth-of-type(1) {
+  left: 38px;
+  top: 144px;
+}
+
+.popup__input-error:nth-of-type(2) {
+  left: 37px;
+  top: 201px;
+}
+
+.popup__input_type_error {
+  border-bottom: 1px solid #ff0000;
+}
+
+.popup__error_visible {
+  opacity: 1;
 }
 
 @media screen and (max-width: 568px) {
@@ -893,6 +958,26 @@ template {
 .popup__button:hover {
   background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
+}
+
+.popup__button_disabled {
+  opacity: 0.2;
+}
+
+.button__text {
+  display: block;
+}
+
+.button__text-hidden {
+  display: none;
+}
+
+.button__text-loading {
+  display: none;
+}
+
+.button__text-loading_visible {
+  display: block;
 }
 
 @media screen and (max-width: 568px) {
