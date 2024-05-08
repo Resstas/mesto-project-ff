@@ -15,7 +15,7 @@ export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, 
   })
   
   const deleteIcon = cardElement.querySelector('.card__delete-button');
-  const confirmDeleteCard = document.querySelector('.popup_delete_card');
+  const confirmDeleteCard = document.querySelector('.popup_type_delete-card');
   const yesBtn = confirmDeleteCard.querySelector('.popup__button');
 
   if (cardOwnerId != initialUserId) {
@@ -35,7 +35,7 @@ export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, 
   if (isActive) {
     likeBtn.classList.add('card__like-button_is-active');
   }
-  
+
   likeBtn.addEventListener('click',function(evt) {
     likeCard(evt, cardId)
   })
