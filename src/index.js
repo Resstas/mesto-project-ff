@@ -52,7 +52,6 @@ getInitialUser()
     profileTitle.textContent = name;
     profileJob.textContent = about;
     profileImg.style.backgroundImage = `url(${avatar})`;
-    console.log(avatar)
   })
   .catch((err) => {
     console.log(err);
@@ -144,7 +143,6 @@ formAddCard.addEventListener('submit', async function(evt){
     });
   const cardId = res._id;
   const cardOwnerId = res.owner._id
-  console.log(res)
   const likes = [];
   const cardElement = createCard({name, link, alt, likes, cardOwnerId, initialUserId, cardId, deleteCard, likeCard, clickImg});
   cardPlaces.prepend(cardElement);
@@ -194,7 +192,6 @@ getInitialCards()
   .then((res) => {
     res.forEach(function (item) {
       const {name, link, owner: {_id:cardOwnerId}, _id:cardId, likes} = item
-      console.log(item)
       const alt = name;
       const cardElement = createCard({name, link, alt, likes, cardOwnerId, initialUserId, cardId, deleteCard, likeCard, clickImg});
       cardPlaces.append(cardElement);

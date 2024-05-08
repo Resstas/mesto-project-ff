@@ -55,7 +55,6 @@ export function deleteCard(evt, cardId) {
 export async function likeCard(evt, cardId) {
   const likeBtn = evt.target;
   const likeCounter = likeBtn.parentNode.querySelector('.card__like-number');
-  console.log(likeCounter)
   if (likeBtn.classList.contains('card__like-button_is-active')) {
     likeBtn.classList.remove('card__like-button_is-active');
     const res = await deleteLike(cardId)
@@ -66,7 +65,6 @@ export async function likeCard(evt, cardId) {
     const likeCount = res.likes.length;
     likeBtn.classList.add('card__like-button_is-active');
     likeCounter.textContent = likeCount;
-    console.log(res)    
   }
 }
 
