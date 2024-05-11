@@ -15,8 +15,6 @@ export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, 
   })
   
   const deleteIcon = cardElement.querySelector('.card__delete-button');
-  const confirmDeleteCard = document.querySelector('.popup_type_delete-card');
-  const yesBtn = confirmDeleteCard.querySelector('.popup__button');
 
   if (cardOwnerId != initialUserId) {
     deleteIcon.remove();
@@ -50,8 +48,7 @@ export function deleteCard(evt, cardId) {
     })
     .catch((err) => {
       console.log(err);
-    });
-  
+    }); 
 };
 
 export async function likeCard(evt, cardId, likesCounter) {
