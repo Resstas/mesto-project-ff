@@ -6,20 +6,24 @@ const config = {
   }
 }
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+} 
+
 export function getInitialUser() {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'GET',
     headers: config.headers
   })
     .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res)
     });
 }
 
-export function pathProfile(newPatch) {
+export function patchProfile(newPatch) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
@@ -29,10 +33,7 @@ export function pathProfile(newPatch) {
     })
   })
     .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res);
     });
 }
 
@@ -42,11 +43,7 @@ export function getInitialCards() {
     headers: config.headers
   })
     .then(res => {
-      if (res.ok) {
-        console.log(res)
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res) 
     });
 }
 
@@ -60,10 +57,7 @@ export function postCard(newPost) {
     })
   })
     .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res);
     });
 }
 
@@ -73,10 +67,7 @@ export function deleteCardApi(cardId) {
     headers: config.headers
   })
     .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res);
     });
 }
 
@@ -86,11 +77,7 @@ export function putLike(cardId) {
     headers: config.headers
   })
     .then(res => {
-      if (res.ok) {
-        console.log(res)
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res);
     });
 };
 
@@ -100,11 +87,7 @@ export function deleteLike(cardId) {
     headers: config.headers
   })
     .then(res => {
-      if (res.ok) {
-        console.log(res)
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res);
     });
 };
 
@@ -117,11 +100,7 @@ export function patchAvatar(newPatch) {
     })
   })
     .then(res => {
-      if (res.ok) {
-        console.log(res)
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return checkResponse(res);
     });
 
 }

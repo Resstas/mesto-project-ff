@@ -1,6 +1,6 @@
 import { deleteCardApi, putLike, deleteLike } from "./api.js";
 import { openModal, closeModal } from "./modal.js";
-export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, cardId, deleteCard,likeCard, clickImg}) {
+export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, cardId, deleteCard,likeCard, onImageClick}) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -40,7 +40,7 @@ export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, 
     likeCard(evt, cardId)
   })
     
-  cardImage.addEventListener('click', clickImg);
+  cardImage.addEventListener('click', onImageClick);
 
   return cardElement
 };
@@ -48,16 +48,20 @@ export function createCard({name, link, alt, likes, cardOwnerId, initialUserId, 
 
 export function deleteCard(evt, cardId) {
   const card = evt.target.closest('.card');
-  deleteCardApi(cardId);
-  card.remove();
+  deleteCardApi(cardId)
+    .then(res => {
+      card.remove();
+
+    })
+  
 };
 
 export async function likeCard(evt, cardId) {
   const likeBtn = evt.target;
   const likeCounter = likeBtn.parentNode.querySelector('.card__like-number');
   if (likeBtn.classList.contains('card__like-button_is-active')) {
-    likeBtn.classList.remove('card__like-button_is-active');
     const res = await deleteLike(cardId)
+    likeBtn.classList.remove('card__like-button_is-active');
     const likeCount = res.likes.length;
     likeCounter.textContent = likeCount;
   } else {
