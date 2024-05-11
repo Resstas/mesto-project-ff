@@ -39,16 +39,6 @@ const textBtnProfileAvatar = popupProfileAvatar.querySelector('.button__text');
 const textBtnProfile = popupProfile.querySelector('.button__text');
 const textBtnNewCard = popupNewCard.querySelector('.button__text');
 
-let cardForDelete = {
-  id: 0,
-  element: 0
-}
-function openDeleteConfirmationPopup(id, element) {
-  cardForDelete.id = id
-  cardForDelete.element = element
-}
-
-
 let initialUserId;
 Promise.all([getInitialUser(), getInitialCards()])
   .then(([userData, cardsData]) => {
@@ -69,7 +59,6 @@ Promise.all([getInitialUser(), getInitialCards()])
   .catch((err)=> {
     console.log(err);
   })
-
 
 function onImageClick(evt){
   openModal(popupImgContainer);
@@ -109,7 +98,6 @@ popupAll.forEach((popup) => {
   })
 })
 
-
 function handleFormSubmitProfile(evt) {
     evt.preventDefault();                                          
     
@@ -137,8 +125,6 @@ function fillProfileFormInputs() {
   jobInput.value = profileJob.textContent
 }
 
-
-
 formProfile.addEventListener('submit', handleFormSubmitProfile);
 
 formAddCard.addEventListener('submit', async function(evt){
@@ -165,8 +151,6 @@ formAddCard.addEventListener('submit', async function(evt){
   } finally {
       renderLoading(false, textBtnNewCard);
   };
-  
-  
 });
 
 function handleFormSubmitProfileAvatar(evt) {
@@ -192,7 +176,6 @@ function handleFormSubmitProfileAvatar(evt) {
   
 }
 
-
 formProfileAvatar.addEventListener('submit', handleFormSubmitProfileAvatar);
 
 function renderLoading(isLoading, textBtn) {
@@ -202,9 +185,6 @@ function renderLoading(isLoading, textBtn) {
     textBtn.textContent = "Сохранить";
   }
 }
-
-
-
 
 enableValidation(validationConfig);
 
