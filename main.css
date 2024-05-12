@@ -964,22 +964,6 @@ template {
   opacity: 0.2;
 }
 
-.button__text {
-  display: block;
-}
-
-.button__text-hidden {
-  display: none;
-}
-
-.button__text-loading {
-  display: none;
-}
-
-.button__text-loading_visible {
-  display: block;
-}
-
 @media screen and (max-width: 568px) {
   .popup__button {
     font-size: 14px;
