@@ -55,7 +55,7 @@ function hasInvalidInput (inputList) {
   });
 }
 
-function disabledButton(buttonElement, inactiveButtonClass) {
+function disableButton(buttonElement, inactiveButtonClass) {
   buttonElement.disabled = true;
   buttonElement.classList.add(inactiveButtonClass)
 }
@@ -63,7 +63,7 @@ function disabledButton(buttonElement, inactiveButtonClass) {
 function toggleButtonState (inputList, buttonElement, selectors) {
   const {inactiveButtonClass} = selectors
   if (hasInvalidInput(inputList)) {
-    disabledButton(buttonElement, inactiveButtonClass);
+    disableButton(buttonElement, inactiveButtonClass);
   } else {
     buttonElement.disabled = false;
     buttonElement.classList.remove(inactiveButtonClass)
@@ -75,9 +75,8 @@ export function clearValidation(formElement, selectors) {
   const inputElementList = Array.from(formElement.querySelectorAll(inputSelector));
   inputElementList.forEach((inputElement) => {
      hideInputError(formElement, inputElement, selectors);
-   })
-  formElement.reset();
+  })
   const buttonElement = formElement.querySelector(submitButtonSelector);
-  disabledButton(buttonElement, inactiveButtonClass);
+  disableButton(buttonElement, inactiveButtonClass);
  }
 

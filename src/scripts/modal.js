@@ -14,3 +14,9 @@ export function closeByEsc(evt) {
     closeModal(modalOpened);
   }
 }
+
+export function handleCloseModalByOverlay(evt, modal) {
+  if(evt.target === evt.currentTarget) {
+    closeModal(modal);
+  }
+}

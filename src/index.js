@@ -1,6 +1,6 @@
 import './pages/index.css';
 import {createCard, deleteCard ,likeCard } from './scripts/card.js';
-import { openModal, closeModal } from './scripts/modal.js';
+import { openModal, closeModal, handleCloseModalByOverlay } from './scripts/modal.js';
 import { enableValidation, clearValidation  } from './scripts/validation.js';
 import { getInitialCards, getInitialUser, patchProfile, postCard, deleteCardApi, putLike, deleteLike, patchAvatar } from './scripts/api.js';
 
@@ -75,12 +75,12 @@ popupProfileBtn.addEventListener('click', function(){
 
 popupProfileAvatarBtn.addEventListener('click', function(){
   openModal(popupProfileAvatar);
+  formProfileAvatar.reset();
   clearValidation(formProfileAvatar, validationConfig);
 })
 
 popupAddBtn.addEventListener('click', function(){ 
   openModal(popupNewCard);
-  clearValidation(formAddCard, validationConfig);
 });
 
 popupAll.forEach((popup) => {
@@ -88,13 +88,9 @@ popupAll.forEach((popup) => {
   closeBtn.addEventListener('click', function(){
     closeModal(popup)
   })
-  const popupContent = popup.querySelector('.popup__content')
-  popupContent.addEventListener('click', function(evt){
-    evt.stopPropagation()
-  })
 
-  popup.addEventListener('click', function(){
-    closeModal(popup)
+  popup.addEventListener('click', function(evt){
+    handleCloseModalByOverlay(evt, popup)
   })
 })
 
@@ -144,12 +140,13 @@ formAddCard.addEventListener('submit', async function(evt){
     const likes = [];
     const cardElement = createCard({name, link, alt, likes, cardOwnerId, initialUserId, cardId, deleteCard, likeCard, onImageClick});
     cardPlaces.prepend(cardElement);
+    clearValidation(formAddCard, validationConfig);
     formAddCard.reset();
     closeModal(popupNewCard);
   } catch(err) {
-      console.log(err)
+    console.log(err)
   } finally {
-      renderLoading(false, textBtnNewCard);
+    renderLoading(false, textBtnNewCard);
   };
 });
 
